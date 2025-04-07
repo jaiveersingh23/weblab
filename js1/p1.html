@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determine Maximum Value</title>
+    <script>
+        function findMaximum(a, b) {
+            return a > b ? a : b;
+        }
+        function showMaximum() {
+            const firstNumber = Number(document.getElementById("firstNum").value);
+            const secondNumber = Number(document.getElementById("secondNum").value);
+            const maxNumber = findMaximum(firstNumber, secondNumber);
+            document.getElementById("output").innerText = "The maximum value is: " + maxNumber;
+        }
+    </script>
+</head>
+<body>
+    <h1>Identify the Maximum Number</h1>
+    <p>Enter two numbers below:</p>
+    <input type="number" id="firstNum" placeholder="First number">
+    <input type="number" id="secondNum" placeholder="Second number">
+    <button onclick="showMaximum()">Calculate Max</button>
+    <p id="output"></p>
+</body>
+</html>

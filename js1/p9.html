@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Long Words</title>
+</head>
+<body>
+    <h1>Filter Long Words from an Array</h1>
+    <label for="wordsInput">Enter words (comma-separated):</label>
+    <input type="text" id="wordsInput"><br>
+    <label for="lengthInput">Enter minimum length:</label>
+    <input type="number" id="lengthInput"><br>
+    <button onclick="filterWords()">Filter</button>
+    <h2 id="result"></h2>
+    <script>
+        function filterLongWords(words, minLength) {
+            return words.filter(word => word.length > minLength);
+        }
+        function filterWords() {
+            const input = document.getElementById('wordsInput').value;
+            const minLength = parseInt(document.getElementById('lengthInput').value, 10);
+            const wordsArray = input.split(',').map(word => word.trim()); 
+            const filteredWords = filterLongWords(wordsArray, minLength);
+            document.getElementById('result').innerText = filteredWords.join(', ');
+        }
+    </script>
+</body>
+</html>
