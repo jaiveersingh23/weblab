@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Guessing Game</title>
+</head>
+<body>
+  <h2>Word Guessing Game</h2>
+  <p>Guess the word one letter at a time.</p>
+  <input type="text" id="guessInput" maxlength="1" placeholder="Enter a letter">
+  <button onclick="guessLetter()">Guess</button>
+  <p id="output"></p>
+  <p id="reward"></p>
+  <p id="hangman"></p>
+
+  <script>
+    const word = ['F', 'O', 'X'];
+    let guessed = ['_', '_', '_'];
+    let guessedLetters = [];
+    let reward = 0;
+    let hangmanState = 0;
+    const maxWrongGuesses = 6;
+
+    function drawHangman(state) {
+      const stages = [
+        "",
+        " O ",
+        " O \n | ",
+        " O \n/| ",
+        " O \n/|\\",
+        " O \n/|\\\n/ ",
+        " O \n/|\\\n/ \\"
+      ];
+      return stages[state];
+    }
+
+    function guessLetter() {
+      const input = document.getElementById("guessInput");
+      const letter = input.value.toUpperCase();
+      input.value = "";
+
+      if (!letter.match(/[A-Z]/) || guessedLetters.includes(letter)) {
+        document.getElementById("output").innerText = "Invalid or repeated guess.";
+        return;
+      }
+
+      guessedLetters.push(letter);
+      let found = false;
+      let matches = 0;
+
+      for (let i = 0; i < word.length; i++) {
+        if (word[i] === letter && guessed[i] === '_') {
+          guessed[i] = letter;
+          found = true;
+          matches++;
+        }
+      }
+
+      if (found) {
+        const rewardAmount = Math.floor(Math.random() * 100) + 1;
+        reward += rewardAmount * matches;
+        document.getElementById("output").innerText =
+          `Correct! ${letter} is in the word.\nCurrent word: ${guessed.join(' ')}`;
+      } else {
+        const penalty = Math.floor(Math.random() * 50) + 1;
+        reward -= penalty;
+        hangmanState++;
+        document.getElementById("output").innerText =
+          `Wrong! ${letter} is not in the word.\nCurrent word: ${guessed.join(' ')}`;
+      }
+
+      document.getElementById("reward").innerText = `Reward: $${reward}`;
+      document.getElementById("hangman").innerText = drawHangman(hangmanState);
+
+      if (guessed.join('') === word.join('')) {
+        document.getElementById("output").innerText += `\n🎉 You guessed the word: ${word.join('')}! Final reward: $${reward}`;
+        disableGame();
+      } else if (hangmanState >= maxWrongGuesses) {
+        document.getElementById("output").innerText += `\n💀 You lost! The word was: ${word.join('')}`;
+        disableGame();
+      }
+    }
+
+    function disableGame() {
+      document.getElementById("guessInput").disabled = true;
+    }
+  </script>
+</body>
+</html>

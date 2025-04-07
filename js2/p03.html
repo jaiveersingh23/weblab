@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FixStart Function</title>
+</head>
+<body>
+  <h2>FixStart</h2>
+  <input type="text" id="inputStr" placeholder="Enter a string">
+  <button onclick="fixStart()">Fix</button>
+
+  <p id="result"></p>
+
+  <script>
+    function fixStart() {
+      const str = document.getElementById("inputStr").value;
+
+      if (str.length < 1) {
+        document.getElementById("result").innerText = "Please enter at least one character.";
+        return;
+      }
+
+      const firstChar = str[0];
+      const rest = str.slice(1).replaceAll(firstChar, '*');
+      const fixed = firstChar + rest;
+
+      document.getElementById("result").innerText = fixed;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MixUp Strings</title>
+</head>
+<body>
+  <h2>MixUp Strings</h2>
+  <input type="text" id="str1" placeholder="First string">
+  <input type="text" id="str2" placeholder="Second string">
+  <button onclick="mixUp()">Mix</button>
+
+  <p id="result"></p>
+
+  <script>
+    function mixUp() {
+      const s1 = document.getElementById("str1").value;
+      const s2 = document.getElementById("str2").value;
+
+      if (s1.length < 2 || s2.length < 2) {
+        document.getElementById("result").innerText = "Both strings must be at least 2 characters.";
+        return;
+      }
+
+      const newStr1 = s2.slice(0, 2) + s1.slice(2);
+      const newStr2 = s1.slice(0, 2) + s2.slice(2);
+
+      document.getElementById("result").innerText = newStr1 + " " + newStr2;
+    }
+  </script>
+</body>
+</html>

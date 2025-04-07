@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h2>Simple Calculator</h2>
+  <input type="number" id="inputNumber" placeholder="Enter a number">
+  <button onclick="doAll()">Calculate</button>
+
+  <p id="output"></p>
+
+  <script>
+    function squareNumber(num) {
+      const result = num * num;
+      return `The result of squaring the number ${num} is ${result}.`;
+    }
+
+    function halfNumber(num) {
+      const result = num / 2;
+      return `Half of ${num} is ${result}.`;
+    }
+
+    function percentOf(part, whole) {
+      const result = (part / whole) * 100;
+      return `${part} is ${result.toFixed(2)}% of ${whole}.`;
+    }
+
+    function areaOfCircle(radius) {
+      const area = Math.PI * radius * radius;
+      return `The area for a circle with radius ${radius} is ${area.toFixed(2)}.`;
+    }
+
+    function doAll() {
+      const num = parseFloat(document.getElementById("inputNumber").value);
+      if (isNaN(num)) {
+        document.getElementById("output").innerText = "Please enter a valid number.";
+        return;
+      }
+
+      const half = num / 2;
+      const squared = half * half;
+      const area = Math.PI * squared * squared;
+      const percent = (area / squared) * 100;
+
+      const resultText = [
+        halfNumber(num),
+        squareNumber(half),
+        areaOfCircle(squared),
+        percentOf(area.toFixed(2), squared)
+      ].join("<br>");
+
+      document.getElementById("output").innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
